@@ -12,3 +12,5 @@ mongoose.connect("mongodb://localhost/" + dbName, {
 		console.log("There was an error connecting to the " + dbName + " database:");
 		console.log(err);
 	});
+
+	//test
