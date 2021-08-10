@@ -5,15 +5,14 @@ import Delete from './Delete';
 
 const Details = (props) => {
 	const { id } = props;
-    const [ allPets, setAllPets ] = useState([]);
-	const [ pet, setPet ] = useState({});
-    const [ like, SetLike ] = useState("");
+    const [ allGames, setAllGames ] = useState([]);
+	const [ game, setGame ] = useState({});
 
 	useEffect(() => {
-		axios.get("http://localhost:8000/api/pets/" + id)
+		axios.get("http://localhost:8000/api/games/" + id)
 			.then((res) => {
 				console.log(res);
-				setPet(res.data);
+				setGame(res.data);
 			})
 			.catch((err) => {
 				console.log(err)
@@ -21,41 +20,39 @@ const Details = (props) => {
 	}, []);
 
 
-	const updateAfterDelete = (deletedPetId) => {
-		let filteredPetArray = allPets.filter((petObj) => {
-			return petObj._id !== deletedPetId;
+	const updateAfterDelete = (deletedGameId) => {
+		let filteredGameArray = allGames.filter((gameObj) => {
+			return gameObj._id !== deletedGameId;
 		});
 
-		setAllPets(filteredPetArray);
+		setAllGames(filteredGameArray);
 	}
 
 	return (
 		<div>
             <span>
                 <div>
-                    <h2>Pet Details</h2>
-                    <p>Details about: {pet.name}</p>
+                    <h2>Game Details</h2>
+                    <p>Details about: {game.name}</p>
                 </div>
 				<div className="details-btn">
-                    <Link className="details-link" to="/pets">back to home</Link>
-					<Delete petId={pet._id} afterDelete={updateAfterDelete} />
+                    <Link className="details-link" to="/games">back to home</Link>
+					<Delete gameId={game._id} afterDelete={updateAfterDelete} />
 				</div>
             </span>
 			<table>
 				<tbody>
 					<tr>
-						<td className="details-td">Type:</td>
-						<td className="details-td">{pet.type}</td>
+						<td className="details-td">Genre:</td>
+						<td className="details-td">{game.genre}</td>
 					</tr>
 					<tr>
-						<td className="details-td">Description:</td>
-						<td className="details-td">{pet.description}</td>
+						<td className="details-td">My Rating:</td>
+						<td className="details-td">{game.myRating}</td>
 					</tr>
 					<tr>
-						<td className="details-td">Skills:</td>
-						<td className="details-td">{pet.skill1}</td>
-                        <td className="details-td">{pet.skill2}</td>
-                        <td className="details-td">{pet.skill3}</td>
+						<td className="details-td">Status:</td>
+						<td className="details-td">{game.status}</td>
 					</tr>
 				</tbody>
 			</table>

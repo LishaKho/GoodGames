@@ -1,12 +1,12 @@
-const Pet = require('../models/pet.model');
+const Game = require('../models/game.model');
 
 module.exports.getAll = (req, res) => {
 	console.log("inside get all");
 
-	Pet.find()
-		.then((allPets) => {
-			console.log(allPets);
-			res.json(allPets);
+	Game.find()
+		.then((allGames) => {
+			console.log(allGames);
+			res.json(allGames);
 		})
 		.catch((err) => {
 			console.log(err);
@@ -18,10 +18,10 @@ module.exports.create = (req, res) => {
 	console.log("inside create");
 	console.log(req.body);
 
-	Pet.create(req.body)
-		.then((newPet) => {
-			console.log(newPet);
-			res.json(newPet);
+	Game.create(req.body)
+		.then((newGame) => {
+			console.log(newGame);
+			res.json(newGame);
 		})
 		.catch((err) => {
 			console.log(err);
@@ -29,15 +29,15 @@ module.exports.create = (req, res) => {
 		})
 };
 
-	// get a single pet
+	// get a single game
 module.exports.getOne = (req, res) => {
 	console.log("inside getOne");
 	console.log("looking for id: " + req.params.id);
 
-	Pet.findById(req.params.id)
-		.then((onePet) => {
-			console.log(onePet);
-			res.json(onePet);
+	Game.findById(req.params.id)
+		.then((oneGame) => {
+			console.log(oneGame);
+			res.json(oneGame);
 		})
 		.catch((err) => {
 			console.log(err);
@@ -45,19 +45,19 @@ module.exports.getOne = (req, res) => {
 		})
 };
 
-// update a single pet
+// update a single game
 module.exports.update = (req, res) => {
 	console.log("inside update");
 	console.log("looking for id: " + req.params.id);
 	console.log(req.body);
 
-	Pet.findByIdAndUpdate(req.params.id, req.body, {
+	Game.findByIdAndUpdate(req.params.id, req.body, {
 		new: true,
 		runValidators: true,
 	})
-		.then((updatedPet) => {
-			console.log(updatedPet);
-			res.json(updatedPet);
+		.then((updatedGame) => {
+			console.log(updatedGame);
+			res.json(updatedGame);
 		})
 		.catch((err) => {
 			console.log(err);
@@ -65,15 +65,15 @@ module.exports.update = (req, res) => {
 		})
 }
 
-	// delete a single pet
+	// delete a single game
 module.exports.delete = (req, res) => {
 	console.log("inside delete");
 	console.log("looking for id: " + req.params.id);
 
-	Pet.findByIdAndDelete(req.params.id)
-		.then((deletedPet) => {
-			console.log(deletedPet);
-			res.json(deletedPet);
+	Game.findByIdAndDelete(req.params.id)
+		.then((deletedGame) => {
+			console.log(deletedGame);
+			res.json(deletedGame);
 		})
 		.catch((err) => {
 			console.log(err);

@@ -3,17 +3,17 @@ import axios from 'axios';
 import { navigate } from '@reach/router';
 
 const Delete = (props) => {
-	const { petId, afterDelete } = props;
+	const { gameId, afterDelete } = props;
 
 	const deleteHandler = () => {
-		console.log("Delete id: " + petId);
+		console.log("Delete id: " + gameId);
 
-		axios.delete("http://localhost:8000/api/pets/" + petId)
+		axios.delete("http://localhost:8000/api/games/" + gameId)
 			.then((res) => {  // successful delete
 				console.log("pet delete:")
 				console.log(res.data);
-				afterDelete(petId);
-                navigate("/pets/");
+				afterDelete(gameId);
+                navigate("/games/");
 			})
 			.catch((err) => {
 				console.log(err);
@@ -22,7 +22,7 @@ const Delete = (props) => {
 
 	return (
 		<button className="deleteBtn" onClick={(e) => deleteHandler()}>
-			Adopt 
+			Delete
 		</button>
 	)
 }

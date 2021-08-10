@@ -6,23 +6,25 @@ const Edit = (props) => {
 	const { id } = props;
 	
 	const [ name, setName ] = useState("");
-	const [ type, setType] = useState("");
-	const [ description, setDescription ] = useState("");
-	const [ skill1, setSkill1 ] = useState("");
-	const [ skill2, setSkill2 ] = useState("");
-	const [ skill3, setSkill3 ] = useState("");
+	const [ genre, setGenre] = useState("");
+	const [ myRating, setMyRating ] = useState("");
+	const [ status, setStatus ] = useState("");
 	const [ errors, setErrors ] = useState({});
 
+	const allStatus = [
+		"Playing",
+		"Played",
+		"Want to Play",
+	];
+
 	useEffect(() => {
-		axios.get("http://localhost:8000/api/pets/" + id)
+		axios.get("http://localhost:8000/api/games/" + id)
 			.then((res) => {
 				console.log(res.data);
 				setName(res.data.name);
-				setType(res.data.type);
-				setDescription(res.data.description);
-				setSkill1(res.data.skill1);
-				setSkill2(res.data.skill2);
-				setSkill3(res.data.skill3);
+				setGenre(res.data.genre);
+				setMyRating(res.data.myrating);
+				setStatus(res.data.status);
 			})
 			.catch((err) => {
 				console.log(err)
@@ -32,19 +34,17 @@ const Edit = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		const tempPet = {
+		const tempGame = {
 			name,
-			type,
-			description,
-			skill1,
-			skill2,
-			skill3,
+			genre,
+			myRating,
+			status,
 		};
 
-		axios.put("http://localhost:8000/api/pets/" + id, tempPet)
+		axios.put("http://localhost:8000/api/games/" + id, tempGame)
 			.then((res) => {
 				console.log(res);
-				navigate("/pets/" + res.data._id);
+				navigate("/games/" + res.data._id);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -80,77 +80,57 @@ const Edit = (props) => {
 						/>
 				</div>
 				<div>
-					<label>Type: </label>
+					<label>Genre: </label>
 					{
-						errors.type ? 
-							<span className="error-text">{errors.type.message}</span>
+						errors.genre ? 
+							<span className="error-text">{errors.genre.message}</span>
 							: null
 					}
 					<input
 						type="text"
-						name="type"
-						value={type}
-						onChange={(e) => setType(e.target.value)}
+						name="genre"
+						value={genre}
+						onChange={(e) => setGenre(e.target.value)}
 						/>
 				</div>
 				<div>
-					<label>Description: </label>
+					<label>My Rating: </label>
 					{
-						errors.description ? 
-							<span className="error-text">{errors.description.message}</span>
+						errors.myRating ? 
+							<span className="error-text">{errors.myRating.message}</span>
 							: null
 					}
 					<input
 						type="text"
-						name="description"
-						value={description}
-						onChange={(e) => setDescription(e.target.value)}
+						name="myRating"
+						value={myRating}
+						onChange={(e) => setMyRating(e.target.value)}
 						/>
 				</div>
 				<div>
-					<label>Skill 1: </label>
+				<label>Status</label>
 					{
-						errors.skill1 ? 
-							<span className="error-text">{errors.skill1.message}</span>
+						errors.Status ? 
+							<span className="error-text">{errors.status.message}</span>
 							: null
 					}
-					<input
-						type="text"
-						name="skill1"
-						value={skill1}
-						onChange={(e) => setSkill1(e.target.value)}
-						/>
+					<select
+						name="status"
+						value={status}
+						onChange={(e) => setStatus(e.target.value)}
+						>
+						{/* this option is required if I use an empty string as the default value */}
+						{/* If you want to set a specific default string, you must put it in state to start! */}
+						<option value=""></option>
+						{
+							allStatus.map((statusType, index) => (
+								<option value={statusType} key={index}>{statusType}</option>
+							))
+						}
+					</select>
 				</div>
 				<div>
-					<label>Skill 2: </label>
-					{
-						errors.skill2 ? 
-							<span className="error-text">{errors.skill2.message}</span>
-							: null
-					}
-					<input
-						type="text"
-						name="skill2"
-						value={skill2}
-						onChange={(e) => setSkill2(e.target.value)}
-						/>
-				</div>
-				<div>
-					<label>Skill 3: </label>
-					{
-						errors.skill3 ? 
-							<span className="error-text">{errors.skill3.message}</span>
-							: null
-					}
-					<input
-						type="text"
-						name="skill3"
-						value={skill3}
-						onChange={(e) => setSkill3(e.target.value)}
-						/>
-				</div>
-				<div>
-					<button className="create-btn"onClick={handleSubmit}>Edit Pet</button>
+					<button className="create-btn"onClick={handleSubmit}>Edit Game</button>
 				</div>
 			</form>
 
