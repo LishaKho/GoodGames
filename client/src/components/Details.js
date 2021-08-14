@@ -54,6 +54,10 @@ const Details = (props) => {
 						<td className="details-td">Status:</td>
 						<td className="details-td">{game.status}</td>
 					</tr>
+					<tr>
+						<td className="details-td">Game Image:</td>
+						<td className="details-td">{game.file}</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>

@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import { Link, navigate } from '@reach/router';
+
+
 
 const Create = (props) => {
 	const [ name, setName ] = useState("");
 	const [ genre, setGenre] = useState("");
 	const [ myRating, setMyRating ] = useState("");
 	const [ status, setStatus ] = useState("");
+	const [ image, setImage] = useState("")
 	const [ errors, setErrors ] = useState({});
+
 
 	const allStatus = [
 		"Playing",
@@ -19,11 +23,13 @@ const Create = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
+	
 		const newGame = {
 			name,
 			genre,
 			myRating,
             status,
+			image,
 		};
 
 		axios.post("http://localhost:8000/api/games", newGame)
@@ -39,6 +45,7 @@ const Create = (props) => {
 				}
 			})
 	}
+
 
 	return (
 		<div>
@@ -116,6 +123,12 @@ const Create = (props) => {
 						}
                         </select>
 				</div>
+				<input className="create-input"
+				type="file"
+				name="image"
+				value={image}
+				onChange={(e) => setImage(e.target.value)}
+				/>
 				<div>
 					<button className="create-btn" type="submit">Add Game</button>
 				</div>
