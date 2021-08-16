@@ -20,9 +20,9 @@ const GameSchema = mongoose.Schema({
     status: {
         type: String,
     },
-
-    image: {
-        type: File,
+    
+    images: {
+        type: String,
     }
 
 }, { timestamps: true });

@@ -10,6 +10,85 @@ span {
   justify-content: space-between;
 }
 
+/* bootstrap test styles */
+tr:hover {
+  background-color: #a98eda;
+}
+
+.nav-color {
+  background-color: #6610f2;
+}
+
+.nav-font {
+  color: white;
+}
+
+.nav, a {
+  color: white;
+}
+
+
+.button-color {
+  background-color: #6610f2;
+  border: none;
+  border-radius: 5px;
+}
+
+/* button.button-color, .header-btn {
+  height: 30px;
+} */
+
+/* All Games */
+span.all-header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Create */
+.cr-header {
+  margin: auto;
+}
+
+/* Details */
+span.details-header{
+  margin: auto;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.td.details-row {
+  margin: -100px;
+}
+
+button.details.btn.btn-outline-success {
+  margin-left: 20px;
+  padding: 5.7px 18.5px;
+}
+
+button.details.btn.btn-outline-success a {
+  text-decoration: none;
+  /* text-decoration-color: white !important; */
+  color: green;
+}
+
+button.details.btn.btn-outline-success a:hover {
+  color: white;
+}
+
+/* Edit */
+.edit-header {
+  margin: auto;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* .morph {
+  box-shadow: 2px 22px 5px black, 
+            -3px -3px 6px white;
+} */
+
+/* 
 table {
   width: 100%;
   margin: auto;
@@ -78,7 +157,7 @@ td, th {
 .deleteBtn {
   background-color: red;
   color: white;
-}
+} */
 
 .error-text {
   color: red;

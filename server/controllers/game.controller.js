@@ -17,8 +17,20 @@ module.exports.getAll = (req, res) => {
 module.exports.create = (req, res) => {
 	console.log("inside create");
 	console.log(req.body);
+	
+	let data = {...req.body}
+	// handle file pathname
+	let imagePath = ""
+	const files = req.files
+	if(files.length > 0){
+		console.log(files[0].size)
+		console.log(files[0].path) 
+		imagePath = files[0].path.replace("public/", "") // remove the "public/" to get the correct path showing
 
-	Game.create(req.body)
+	}
+	
+	data.images = imagePath
+	Game.create(data)
 		.then((newGame) => {
 			console.log(newGame);
 			res.json(newGame);
@@ -51,7 +63,18 @@ module.exports.update = (req, res) => {
 	console.log("looking for id: " + req.params.id);
 	console.log(req.body);
 
-	Game.findByIdAndUpdate(req.params.id, req.body, {
+	let data = {...req.body}
+	// handle file pathname
+	let imagePath = ""
+	const files = req.files
+	if(files.length > 0){
+		console.log(files[0].size)
+		console.log(files[0].path) 
+		imagePath = files[0].path.replace("public/", "") // remove the "public/" to get the correct path showing
+	}
+	
+	data.images = imagePath
+	Game.findByIdAndUpdate(req.params.id, data, {
 		new: true,
 		runValidators: true,
 	})

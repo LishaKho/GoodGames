@@ -21,7 +21,7 @@ const Delete = (props) => {
 	}
 
 	return (
-		<button className="deleteBtn" onClick={(e) => deleteHandler()}>
+		<button className="btn btn-outline-danger" onClick={(e) => deleteHandler()}>
 			Delete
 		</button>
 	)

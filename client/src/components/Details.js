@@ -30,36 +30,37 @@ const Details = (props) => {
 
 	return (
 		<div>
-            <span>
+            <span className="details-header">
                 <div>
-                    <h2>Game Details</h2>
-                    <p>Details about: {game.name}</p>
+                    <h2>{game.name}</h2>
                 </div>
-				<div className="details-btn">
-                    <Link className="details-link" to="/games">back to home</Link>
-					<Delete gameId={game._id} afterDelete={updateAfterDelete} />
-				</div>
             </span>
-			<table>
+			<div>
+			{game.images ? <img className="figure-img img-fluid rounded" src={`http://localhost:8000/${game.images}`} /> : ""}
+			</div>
+
+			<table className="d-flex justify-content-center">
 				<tbody>
 					<tr>
-						<td className="details-td">Genre:</td>
-						<td className="details-td">{game.genre}</td>
+						<td className="p-2 bd-highlight">Genre:</td>
+						<td className="p-2 bd-highlight">{game.genre}</td>
 					</tr>
 					<tr>
-						<td className="details-td">My Rating:</td>
-						<td className="details-td">{game.myRating}</td>
+						<td className="p-2 bd-highlight">My Rating:</td>
+						<td className="p-2 bd-highlight">{game.myRating}</td>
 					</tr>
 					<tr>
-						<td className="details-td">Status:</td>
-						<td className="details-td">{game.status}</td>
-					</tr>
-					<tr>
-						<td className="details-td">Game Image:</td>
-						<td className="details-td">{game.file}</td>
+						<td className="p-2 bd-highlight">Status:</td>
+						<td className="p-2 bd-highlight">{game.status}</td>
 					</tr>
 				</tbody>
 			</table>
+			<div>
+					<Delete gameId={game._id} afterDelete={updateAfterDelete} />
+					<button className="details btn btn-outline-success">
+					<Link to={"/games/" + game._id + "/edit"}> Edit</Link>
+					</button>
+			</div>
 		</div>
 	)
 }

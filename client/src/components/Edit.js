@@ -10,12 +10,18 @@ const Edit = (props) => {
 	const [ myRating, setMyRating ] = useState("");
 	const [ status, setStatus ] = useState("");
 	const [ errors, setErrors ] = useState({});
+	const [ uploader, setUploader ] = useState(null)
 
 	const allStatus = [
 		"Playing",
 		"Played",
 		"Want to Play",
 	];
+
+	const handleFileOnChange = (e) => {
+		console.log(e.target)
+		setUploader(e.target.files[0])
+	}
 
 	useEffect(() => {
 		axios.get("http://localhost:8000/api/games/" + id)
@@ -33,15 +39,26 @@ const Edit = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		let images = ""
+		if(uploader) {
+			console.log(uploader.size)
+			images = uploader
+		}
+		// const tempGame = {
+		// 	name,
+		// 	genre,
+		// 	myRating,
+		// 	status,
+		// };
 
-		const tempGame = {
-			name,
-			genre,
-			myRating,
-			status,
-		};
-
-		axios.put("http://localhost:8000/api/games/" + id, tempGame)
+		let tempGame = new FormData()
+		tempGame.append('name', name)
+		tempGame.append('genre', genre)
+		tempGame.append('myRating', myRating)
+		tempGame.append('status', status)
+		tempGame.append('images', images)
+		console.log("newgame", tempGame)
+		axios.put("http://localhost:8000/api/games/" + id, tempGame, {headers:{"Content-Type": "multipart/form-data"}})
 			.then((res) => {
 				console.log(res);
 				navigate("/games/" + res.data._id);
@@ -58,79 +75,93 @@ const Edit = (props) => {
 	return (
 		<div>
 			<span>
-				<div>
-					<h2>Pet Shelter</h2>
-					<p> Edit {name} </p>
+				<div className="edit-header">
+					<h2> {name} </h2>
+					<p>Make edits to {name} below</p>
 				</div>
-				<Link className="header-btn" to="/pets">back to home</Link>
 			</span>
-			<form className="edit-form">
-				<div>
-					<label>Name: </label>
+			<form className="row gy-2 gx-3 align-items-center">
+				<div className="row mb-3">
+					<label class="col-sm-2 col-form-label">Name: </label>
 					{
 						errors.name ? 
-							<span className="error-text">{errors.name.message}</span>
+							<span className="invalid-feedback">{errors.name.message}</span>
 							: null
 					}
-					<input
-						type="text"
-						name="name"
-						value={name}
-						onChange={(e) => setName(e.target.value)}
-						/>
+					<div className="col-sm-10">
+						<input
+							className="form-control"
+							type="text"
+							name="name"
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+							/>
+						</div>
 				</div>
-				<div>
-					<label>Genre: </label>
+				<div className="row mb-3">
+					<label className="col-sm-2 col-form-label">Genre: </label>
 					{
 						errors.genre ? 
-							<span className="error-text">{errors.genre.message}</span>
+							<span className="invalid-feedback">{errors.genre.message}</span>
 							: null
 					}
-					<input
-						type="text"
-						name="genre"
-						value={genre}
-						onChange={(e) => setGenre(e.target.value)}
-						/>
+					<div className="col-sm-10">
+						<input
+							className="form-control"
+							type="text"
+							name="genre"
+							value={genre}
+							onChange={(e) => setGenre(e.target.value)}
+							/>
+						</div>
 				</div>
-				<div>
-					<label>My Rating: </label>
+				<div className="row mb-3">
+					<label className="col-sm-2 col-form-label">Rating: </label>
 					{
 						errors.myRating ? 
-							<span className="error-text">{errors.myRating.message}</span>
+							<span className="invalid-feedback">{errors.myRating.message}</span>
 							: null
 					}
-					<input
-						type="text"
-						name="myRating"
-						value={myRating}
-						onChange={(e) => setMyRating(e.target.value)}
+					<div className="col-sm-10">
+						<input
+							className="form-control"
+							type="text"
+							name="myRating"
+							value={myRating}
+							onChange={(e) => setMyRating(e.target.value)}
 						/>
+						</div>
 				</div>
-				<div>
-				<label>Status</label>
+				<div className="row mb-3">
+				<label className="col-sm-2 col-form-label">Status:</label>
 					{
 						errors.Status ? 
-							<span className="error-text">{errors.status.message}</span>
+							<span className="invalid-feedback">{errors.status.message}</span>
 							: null
 					}
-					<select
-						name="status"
-						value={status}
-						onChange={(e) => setStatus(e.target.value)}
-						>
-						{/* this option is required if I use an empty string as the default value */}
-						{/* If you want to set a specific default string, you must put it in state to start! */}
-						<option value=""></option>
-						{
-							allStatus.map((statusType, index) => (
-								<option value={statusType} key={index}>{statusType}</option>
-							))
-						}
-					</select>
+					<div className="col-sm-10">
+						<select
+							className="form-select"
+							name="status"
+							value={status}
+							onChange={(e) => setStatus(e.target.value)}
+							>
+							{/* this option is required if I use an empty string as the default value */}
+							{/* If you want to set a specific default string, you must put it in state to start! */}
+							<option value=""></option>
+							{
+								allStatus.map((statusType, index) => (
+									<option value={statusType} key={index}>{statusType}</option>
+								))
+							}
+						</select>
+					</div>
 				</div>
 				<div>
-					<button className="create-btn"onClick={handleSubmit}>Edit Game</button>
+					<input name="imageUploader" id="imageUploader" type="file" accept="image/*" onChange={handleFileOnChange}/>
+				</div>
+				<div>
+					<button className="btn btn-primary"onClick={handleSubmit}>Edit Game</button>
 				</div>
 			</form>
 

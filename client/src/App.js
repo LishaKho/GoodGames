@@ -6,9 +6,7 @@ import Create from './components/Create';
 import Details from './components/Details';
 import Edit from './components/Edit';
 
-
 function App() {
-
   return (
     <div className="App">
       <NavBar />

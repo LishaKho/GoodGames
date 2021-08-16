@@ -20,38 +20,44 @@ const AllGames = (props) => {
 
 	return (
 		<div>
-            <span>
+            <span className="all-header">
                 <div>
                 <h2>All Games</h2>
-                <p>Suggest Games</p>
                 </div>
-                <Link className="header-btn" to="/games/new">add a game</Link>
+                <button className="button-color">
+                    <Link className="header-btn" to="/games/new">add a game</Link>    
+                </button> 
             </span>
-                        <table>
+            <br/>
+                        <table className="table table-hover">
                             <thead>
-                                <th>Game</th>
-                                <th>Genre</th>
-                                <th>My Rating</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th scope="col">Game</th>
+                                <th scope="col">Genre</th>
+                                <th scope="col">My Rating</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Actions</th>
                             </thead>
+                            <br/>
+                            <tbody>
                             {allGames.map((game, index) => {
                             console.log(game.name);
                             return (
-                            <tbody key={index} >
-                                <tr>
+                                <tr key={index} >
                                     <td>{game.name}</td>
                                     <td>{game.genre}</td>
                                     <td>{game.myRating}</td>
                                     <td>{game.status}</td>
                                     <td>
-                                    <Link to={"/games/" + game._id}>Details | </Link>
-                                    <Link to={"/games/" + game._id + "/edit"}> Edit</Link>
-                                </td>
+                                        <button className="button-color">
+                                        <Link to={"/games/" + game._id}>Details | </Link>
+                                        <Link to={"/games/" + game._id + "/edit"}> Edit</Link>
+                                        </button>
+                                    </td>
                                 </tr>
-                                </tbody>
+                                
                     )
                 })}
+                </tbody>
 			</table>
 		</div>
 	)
