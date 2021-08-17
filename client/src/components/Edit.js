@@ -146,8 +146,6 @@ const Edit = (props) => {
 							value={status}
 							onChange={(e) => setStatus(e.target.value)}
 							>
-							{/* this option is required if I use an empty string as the default value */}
-							{/* If you want to set a specific default string, you must put it in state to start! */}
 							<option value=""></option>
 							{
 								allStatus.map((statusType, index) => (

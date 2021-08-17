@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, navigate } from '@reach/router';
+import { navigate } from '@reach/router';
 
 const Create = (props) => {
 	const [ name, setName ] = useState("");
